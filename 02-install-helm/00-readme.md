@@ -10,4 +10,4 @@ chmod 700 get_helm.sh
 
 
 # apply path
-kubectl deploymento tiller -n kube-system --path "$(cat 02-tiller-path.yaml)" 
+kubectl patch deployment tiller -n kube-system --patch "$(cat 02-tiller-path.yaml)"
