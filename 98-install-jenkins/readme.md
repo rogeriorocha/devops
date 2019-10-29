@@ -28,3 +28,6 @@ NOTES:
 
 3. Login with the password from step 1 and the username: admin
 
+
+
+journalctl -fu docker.service
