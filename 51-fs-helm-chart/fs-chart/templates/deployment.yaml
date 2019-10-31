@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: py-fs
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       name: py-fs
