@@ -9,12 +9,6 @@ image:
   tag: 0.1
   pullPolicy: IfNotPresent
 
-service:
-  type: ClusterIP
-  nodePort: 30184
-  port: 80
-
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -37,6 +31,9 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+service:
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: false
