@@ -5,7 +5,7 @@ kubectl apply -f 01-storage.yaml
 
 
 Vamos aplicar nossos novos recursos:
-helm install --name jenkins --set persistence.ExistingClaim=jenkins --set master.serviceType=NodePort --set master.nodePort=30808 --namespace devops stable/jenkins
+helm install --name jenkins --set persistence.existingClaim=jenkins --set master.serviceType=NodePort --set master.nodePort=30808 --namespace devops stable/jenkins
 
 Para maiores detalhes consulte a documentação do chart.
 
@@ -18,7 +18,7 @@ Um Jenkins, up and running em poquíssimos segundos, com auto-scale configurado 
 
 
 ===============
-NOTES:
+NOTES:  
 1. Get your 'admin' user password by running:
   printf $(kubectl get secret --namespace devops jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
 2. Get the Jenkins URL to visit by running these commands in the same shell:

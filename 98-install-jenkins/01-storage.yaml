@@ -6,13 +6,13 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual-for-jenkins
+  storageClassName: standard
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data-jenkins"
+    path: "/Users/rpsr/data-jenkins"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -20,9 +20,9 @@ metadata:
   name: jenkins
   namespace: devops
 spec:
-  storageClassName: manual-for-jenkins
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi      
