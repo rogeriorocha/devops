@@ -2,7 +2,9 @@
 podTemplate(
     label: 'worker', 
     containers: [
-        containerTemplate(args: 'cat', name: 'c-docker', command: '/bin/sh -c', image: 'docker', ttyEnabled: true)
+        containerTemplate(args: 'cat', name: 'c-docker', command: '/bin/sh -c', image: 'docker', ttyEnabled: true),
+        containerTemplate(args: 'cat', name: 'c-helm', command: '/bin/sh -c', image: 'lachlanevenson/k8s-helm:v2.11.0', ttyEnabled: true)
+                                                                                      
     ],
     volumes: [
       hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
@@ -44,6 +46,9 @@ podTemplate(
             }
         }
         stage('Deploy') {
+            container('c-helm') {
+
+            }
             
         }    
     }
