@@ -34,6 +34,10 @@ spec:
       containers:
       - name: py-fs-container
         image: rogeriosilvarocha/py-fs:0.1
+        env:
+        - name: SQLALCHEMY_DATABASE_URI
+          value: "mssql+pymssql://SA:Password12@py-db:1433/"
         ports:
         - containerPort: 5000
         - containerPort: 443
+      restartPolicy: Always  

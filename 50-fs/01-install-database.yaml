@@ -1,0 +1,74 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-db
+  labels:
+    name: py-db-nodeport-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1433
+      name: http
+  selector:
+    name: py-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: py-db
+  template:
+    metadata:
+      labels:
+        name: py-db
+    spec:
+      containers:
+        - name: py-db-container
+          image: microsoft/mssql-server-linux:2017-latest
+          env:
+          - name: SA_PASSWORD
+            value: "Password12"
+          - name: ACCEPT_EULA
+            value: "Y"
+          ports:
+          - containerPort: 1433
+          volumeMounts:
+          - mountPath: /var/opt/mssql
+            name: py-db-home
+      volumes: 
+        - name: py-db-home
+          persistentVolumeClaim:
+            claimName: py-db
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: py-db
+  labels:
+    type: local
+spec:
+  storageClassName: manual-for-py-db
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Users/rpsr/data-py-db"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: py-db
+  namespace: default
+spec:
+  storageClassName: manual-for-py-db
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
