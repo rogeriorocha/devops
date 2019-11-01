@@ -6,7 +6,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: standard
+  storageClassName: manual-for-jenkins
   capacity:
     storage: 5Gi
   accessModes:
@@ -17,10 +17,10 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: jenkins
+  name: jenkins 
   namespace: devops
 spec:
-  storageClassName: standard
+  storageClassName: manual-for-jenkins
   accessModes:
     - ReadWriteOnce
   resources:
