@@ -38,37 +38,5 @@ spec:
           ports:
           - containerPort: 1433
           volumeMounts:
-          - mountPath: /var/opt/mssql
-            name: py-db-home
+
       volumes: 
-        - name: py-db-home
-          persistentVolumeClaim:
-            claimName: py-db
----
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: py-db
-  labels:
-    type: local
-spec:
-  storageClassName: manual-for-py-db
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/Users/rpsr/data-py-db"
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: py-db
-  namespace: default
-spec:
-  storageClassName: manual-for-py-db
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi

@@ -22,7 +22,7 @@ kind: Deployment
 metadata:
   name: py-fs
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       name: py-fs
@@ -40,4 +40,39 @@ spec:
         ports:
         - containerPort: 5000
         - containerPort: 443
-      restartPolicy: Always  
+        volumeMounts:
+        - mountPath: /dados/store
+          name: fs-store
+      volumes: 
+        - name: fs-store
+          persistentVolumeClaim:
+            claimName: pvc-fs-store
+      restartPolicy: Always 
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: fs-store
+  labels:
+    type: local
+spec:
+  storageClassName: manual-for-fs
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Users/rpsr/fs-store"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-fs-store
+  namespace: default
+spec:
+  storageClassName: manual-for-fs
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
