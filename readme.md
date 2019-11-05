@@ -1,8 +1,6 @@
 ## minikube
 
-### commands
-
-* 
+* commands
 ```sh
 #start with 2 CPUs and 8Gb RAM
 minikube start --cpus 2 --memory 8192
