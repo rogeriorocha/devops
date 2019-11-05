@@ -22,7 +22,7 @@ kind: Deployment
 metadata:
   name: py-fs
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       name: py-fs
@@ -36,7 +36,11 @@ spec:
         image: rogeriosilvarocha/py-fs:0.1
         env:
         - name: SQLALCHEMY_DATABASE_URI
-          value: "mssql+pymssql://SA:Password12@py-db:1433/"
+          #value: "mssql+pymssql://SA:Password12@py-db:1433/"
+          value: "postgresql://postgres:Password12@py-db:5432/"
+          #value: "mysql+pymysql://root:Password12@py-db"
+        - name: SQL_SERVER
+          value: "N"
         ports:
         - containerPort: 5000
         - containerPort: 443

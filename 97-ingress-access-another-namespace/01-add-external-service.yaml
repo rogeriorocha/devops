@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: py-fs
+  namespace: kube-system
+spec:
+  type: ExternalName
+  externalName: py-fs.default.svc.cluster.local
+  ports:
+  - port: 5000
