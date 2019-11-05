@@ -22,3 +22,24 @@ minikube dashboard
 minikube addons list
 ```
 
+
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo "Hello, World!"
+          restartPolicy: OnFailure
